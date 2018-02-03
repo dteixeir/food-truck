@@ -11,12 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './appComponent/app.component';
 import { DashboardComponent } from './dashboard/dashboard';
 
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { HeroesComponent } from './hero-master/hero-master.component';
-import { MessagesComponent } from './messages/messages';
-
-import { HeroService, MessageService } from './services';
-import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { HeroDetailComponent, HeroesComponent, HeroSearchComponent, HeroService } from './hero-module/';
+import { MessagesComponent, MessageService } from './messages-module/';
 
 @NgModule({
   declarations: [
