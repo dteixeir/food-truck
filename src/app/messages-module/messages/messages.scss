@@ -1,0 +1,15 @@
+h2 { 
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.flex-wrapper {
+  span {
+    align-self: center;
+    flex: 10;
+  }
+
+  button {
+    flex: 1;
+  }
+}

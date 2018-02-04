@@ -1,0 +1,22 @@
+<div>
+  <div>
+    <mat-form-field>
+        <input #newItem matInput placeholder="Name">
+      </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="add(newItem.value); newItem.value=''">+</button>
+  </div>
+
+  <mat-grid-list cols="2" rowHeight="100px" gutterSize="2px">
+    <mat-grid-tile
+        *ngFor="let item of items"
+        [colspan]="1"
+        [rowspan]="1"
+        [style.background]="'lightblue'"
+        (click)="changeRoute(item)"
+      >
+      <div class="center-text">
+        {{item.name}}
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

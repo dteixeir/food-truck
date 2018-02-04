@@ -1,23 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
-/* Application-wide Styles */
-h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+// /* You can add global styles to this file, and also import other style files */
+// /* Application-wide Styles */
+
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
-h2, h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
+
 body {
-  margin: 2em;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  overflow: hidden;
+
+  .header {
+    flex: none;
+    height: 8vh;
+    background-color: #dcdcdc;
+    align-self: flex-start;
+  }
+
+  .content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    max-height: 100vh - 14vh;
+    min-height: 100vh - 14vh;
+    overflow: scroll;
+  }
+
+  .footer {
+    flex: none;
+    height: 6vh;
+    background-color: #dcdcdc;
+    align-self: flex-end;
+  }
 }
-body, input[text], button {
-  color: #888;
-  font-family: Cambria, Georgia;
-}
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
+
+$i: 0;
+@while $i <= 6 {
+  .margin-#{$i} { 
+    margin: 2em * $i; 
+  }
+
+  $i: $i + 2;
 }
