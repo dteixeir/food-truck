@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseCollection } from '../../baseClasses';
+import { Router } from '@angular/router';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { HeroSearchComponent } from '../index';
 
 @Component({
   selector: 'app-hero-master',
@@ -9,35 +12,25 @@ import { HeroService } from '../hero.service';
   styleUrls: [ './hero-master.component.scss' ]
 })
 
-export class HeroesComponent implements OnInit {
+export class HeroesComponent extends BaseCollection<HeroService, Hero> implements OnInit {
   heroes: Hero[];
   selectedHero: Hero;
 
   constructor(
-    private heroService: HeroService
+    public heroService: HeroService,
+    public router: Router
   ) {
+    super(
+      router,
+      heroService,
+      new Array<Hero>(),
+      'Hero',
+      'Heroes'
+    );
   }
 
   ngOnInit() {
     this.getAll();
-  }
-
-  getAll(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
-  }
-
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name } as Hero).subscribe(hero => {
-      this.heroes.push(hero);
-    });
-  }
-
-  delete(hero: Hero): void {
-    this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero).subscribe();
   }
 }
 

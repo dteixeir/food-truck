@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { FoodTruck } from '../foodTruck';
 import { FoodTruckService } from '../foodTruckService';
+import { BaseDetail } from '../../baseClasses';
 
 @Component({
   selector: 'app-food-truck-detail',
@@ -11,34 +12,24 @@ import { FoodTruckService } from '../foodTruckService';
   styleUrls: [ './foodTruckDetail.scss' ]
 })
 
-export class FoodTruckDetail implements OnInit {
+export class FoodTruckDetail extends BaseDetail<FoodTruckService, FoodTruck> implements OnInit {
   @Input() item: FoodTruck;
 
   constructor(
-    private route: ActivatedRoute,
-    private foodTruckService: FoodTruckService,
-    private location: Location
+    public route: ActivatedRoute,
+    public location: Location,
+    public foodTruckService: FoodTruckService
   ) {
+    super(
+      route,
+      location,
+      foodTruckService,
+      'FoodTruck',
+      'FoodTrucks'
+    );
   }
 
   ngOnInit() {
     this.getById();
-  }
-
-  getById(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.foodTruckService.getById(id).subscribe(foodTruck => {
-      this.item = foodTruck;
-    });
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
-
-  save(): void {
-    this.foodTruckService.update(this.item).subscribe(() => {
-      this.goBack();
-    });
   }
 }

@@ -3,7 +3,7 @@
     <mat-form-field>
         <input #newItem matInput placeholder="Name">
       </mat-form-field>
-    <button mat-mini-fab color="primary" (click)="add(newItem.value); newItem.value=''">+</button>
+    <button mat-mini-fab color="primary" (click)="addItem(newItem.value); newItem.value=''">+</button>
   </div>
 
   <mat-grid-list cols="2" rowHeight="100px" gutterSize="2px">

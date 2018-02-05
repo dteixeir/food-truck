@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { BaseDetail } from '../../baseClasses';
+
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
@@ -11,33 +13,24 @@ import { HeroService } from '../hero.service';
   styleUrls: [ './hero-detail.component.scss' ]
 })
 
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent extends BaseDetail<HeroService, Hero> implements OnInit {
   @Input() hero: Hero;
 
   constructor(
-    private route: ActivatedRoute,
-    private heroService: HeroService,
-    private location: Location
+    public route: ActivatedRoute,
+    public heroService: HeroService,
+    public location: Location
   ) {
+    super(
+      route,
+      location,
+      heroService,
+      'Hero',
+      'Heroes'
+    );
   }
 
   ngOnInit() {
-    this.getHero();
-  }
-
-  getHero(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id).subscribe(hero => {
-      this.hero = hero;
-    });
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
-
-  save(): void {
-    this.heroService.updateHero(this.hero)
-      .subscribe(() => this.goBack());
+    this.getById();
   }
 }

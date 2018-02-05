@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { FoodTruck } from '../foodTruck';
 import { FoodTruckService } from '../foodTruckService';
+import { BaseCollection } from '../../baseClasses';
 
 @Component({
   selector: 'app-food-truck-collection',
@@ -10,42 +11,26 @@ import { FoodTruckService } from '../foodTruckService';
   styleUrls: [ './foodTruckCollection.scss' ]
 })
 
-export class FoodTruckCollection implements OnInit {
-  items: FoodTruck[];
-
+export class FoodTruckCollection extends BaseCollection<FoodTruckService, FoodTruck> implements OnInit {
   constructor(
-    private foodTruckService: FoodTruckService,
-    private router: Router
+    public service: FoodTruckService,
+    public router: Router
   ) {
+    super(
+      router,
+      service,
+      new Array<FoodTruck>(),
+      'FoodTruck',
+      'FoodTrucks'
+    );
   }
 
   ngOnInit() {
     this.getAll();
   }
 
-  getAll(): void {
-    this.foodTruckService.getAll()
-      .subscribe(foodTrucks => {
-        this.items = foodTrucks;
-      });
-  }
-
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-
-    this.foodTruckService.add({ name } as FoodTruck).subscribe(foodTruck => {
-      this.items.push(foodTruck);
-    });
-  }
-
-  delete(foodTruck: FoodTruck): void {
-    this.items = this.items.filter(h => h !== foodTruck);
-    this.foodTruckService.delete(foodTruck).subscribe();
-  }
-
-  changeRoute(item: FoodTruck): void {
-    this.router.navigateByUrl(`/foodtruck/${item.id}`);
+  public addItem() {
+    this.add(new FoodTruck( 21, 'test', 'test', ''));
   }
 }
 
