@@ -1,6 +1,4 @@
-import { BaseEntity } from '../baseClasses';
-
-export class Login extends BaseEntity {
+export class Login {
   email: string;
   password: string;
 }

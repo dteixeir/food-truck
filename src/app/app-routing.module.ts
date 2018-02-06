@@ -5,9 +5,13 @@ import { HeroesComponent, HeroDetailComponent } from './hero-module';
 import { FoodTruckCollection, FoodTruckDetail } from './foodTruckModule';
 
 import { DashboardComponent } from './dashboard/dashboard';
+import { LoginComponent } from './loginModule';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
 
   { path: 'hero', component: HeroesComponent },
   { path: 'hero/:id', component: HeroDetailComponent },

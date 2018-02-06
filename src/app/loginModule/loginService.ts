@@ -7,34 +7,29 @@ import { MessageService } from '../messages-module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServiceParams, BaseService } from '../baseClasses';
 
+import { Login } from './login';
+
 @Injectable()
-export class LoginService extends BaseService {
+export class LoginService {
   private email: string = '';
   private password: string = '';
 
-  constructor(
-    http: HttpClient,
-    messageService: MessageService
-  ) {
-      super(
-        http,
-        messageService,
-        {
-          serviceName: 'LoginService',
-          url: 'api/login',
-          entitySingle: 'Login',
-          entityCollection: 'Logins'
-        }
-      );
-   }
+  private url: 'api/login';
+  private entitySingle: 'Login';
+  private entityCollection: 'Logins';
 
-  login(): Observable<any> {
-    return this.http.post<any>(this.params.url, {
-      email: this.email,
-      password: this.password
-    }).pipe(
-      tap(login => this.log(`fetched ${this.params.entitySingle}`)),
-      catchError(this.handleError('login', []))
-      );
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {
+
+  }
+
+  public login(login: Login): Observable<boolean> {
+    return this.http.post<boolean>(this.url, login);
+    // .pipe(
+    //   tap(login => this.log(`fetched ${this.params.entitySingle}`)),
+    //   catchError(this.handleError('login', []))
+    //   );
   }
 }

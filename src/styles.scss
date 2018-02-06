@@ -49,3 +49,22 @@ $i: 0;
 
   $i: $i + 2;
 }
+
+$i: 0;
+@while $i <= 3 {
+  .padding-#{$i} { 
+    margin: 1em * $i; 
+  }
+
+  $i: $i + 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.center-content {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

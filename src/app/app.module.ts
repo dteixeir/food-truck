@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatButtonModule, MatInputModule, MatCheckboxModule, MatGridListModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatCheckboxModule, MatGridListModule, MatToolbarModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -19,6 +19,7 @@ import { HeroDetailComponent, HeroesComponent, HeroSearchComponent, HeroService 
 
 import { FoodTruckDetail, FoodTruckCollection, FoodTruckService } from './foodTruckModule/';
 import { MessagesComponent, MessageService } from './messages-module/';
+import { LoginComponent, LoginService } from './loginModule';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MessagesComponent, MessageService } from './messages-module/';
     HeroDetailComponent,
     MessagesComponent,
     HeroSearchComponent,
+    LoginComponent,
 
     FoodTruckDetail,
     FoodTruckCollection,
@@ -38,6 +40,7 @@ import { MessagesComponent, MessageService } from './messages-module/';
     MatGridListModule,
     MatToolbarModule,
     MatInputModule,
+    MatCardModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
@@ -51,7 +54,8 @@ import { MessagesComponent, MessageService } from './messages-module/';
   providers: [
     HeroService,
     FoodTruckService,
-    MessageService
+    MessageService,
+    LoginService
   ],
   bootstrap: [ AppComponent ]
 })
