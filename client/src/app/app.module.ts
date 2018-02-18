@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatInputModule, MatCheckboxModule, MatGridListModule, MatToolbarModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 
@@ -20,6 +19,8 @@ import { HeroDetailComponent, HeroesComponent, HeroSearchComponent, HeroService 
 import { FoodTruckDetail, FoodTruckCollection, FoodTruckService } from './foodTruckModule/';
 import { MessagesComponent, MessageService } from './messages-module/';
 import { LoginComponent, LoginService } from './loginModule';
+
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -41,15 +42,12 @@ import { LoginComponent, LoginService } from './loginModule';
     MatToolbarModule,
     MatInputModule,
     MatCardModule,
+
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService,
-      { dataEncapsulation: false }
-    )
+    HttpClientModule
   ],
   providers: [
     HeroService,

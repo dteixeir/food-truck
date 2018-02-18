@@ -1,3 +1,6 @@
+import { Guid } from 'guid-typescript';
+import { MomentModule } from 'angular2-moment/moment.module';
+
 export interface IBaseEntity {
   id: number;
 
@@ -9,11 +12,11 @@ export interface IBaseEntity {
 }
 
 export class BaseEntity {
-  constructor(id: number) {
-    this.id = id;
+  constructor() {
+    this.id = Guid.create().toString();
   }
 
-  id: number;
+  id: string;
 
   createdBy: string | null = null;
   createdDate: Date | null = null;

@@ -7,10 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BaseService } from './baseService/index';
+import { BaseRestService } from './baseService/index';
 import { BaseEntity } from './baseEntity';
 
-export interface IBaseDetail<S extends BaseService, I extends BaseEntity>  {
+export interface IBaseDetail<S extends BaseRestService, I extends BaseEntity>  {
   route: ActivatedRoute;
   location: Location;
   service: S;
@@ -19,7 +19,7 @@ export interface IBaseDetail<S extends BaseService, I extends BaseEntity>  {
 }
 
 @Injectable()
-export class BaseDetail<S extends BaseService, I extends BaseEntity> implements IBaseDetail<S, I> {
+export class BaseDetail<S extends BaseRestService, I extends BaseEntity> implements IBaseDetail<S, I> {
   public item: I;
 
   constructor(

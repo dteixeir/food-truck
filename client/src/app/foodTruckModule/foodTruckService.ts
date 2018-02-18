@@ -7,10 +7,10 @@ import { FoodTruck } from './foodTruck';
 import { MessageService } from '../messages-module';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BaseService, ServiceParams } from '../baseClasses';
+import { BaseRestService, ServiceParams } from '../baseClasses';
 
 @Injectable()
-export class FoodTruckService extends BaseService {
+export class FoodTruckService extends BaseRestService {
 
   private singularEntityName = 'foodtruck';
   private pluralEntityName = 'foodtrucks';
@@ -24,7 +24,7 @@ export class FoodTruckService extends BaseService {
       messageService,
       {
         serviceName: 'FoodTruckService',
-        url: 'api/foodtrucks',
+        url: 'foodtruck',
         entitySingle: 'FoodTruck',
         entityCollection: 'FoodTrucks'
       }
@@ -37,7 +37,7 @@ export class FoodTruckService extends BaseService {
       // if not search term, return empty foodTruck array.
       return of([]);
     }
-    return this.http.get<FoodTruck[]>(`api/${this.pluralEntityName}/?name=${term}`).pipe(
+    return this.http.get<FoodTruck[]>(`${this.url}/?name=${term}`).pipe(
       tap(_ => this.log(`found ${this.pluralEntityName} matching "${term}"`)),
       catchError(this.handleError<FoodTruck[]>(`search${this.singularEntityName}`, []))
     );

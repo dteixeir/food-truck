@@ -5,10 +5,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BaseService } from './baseService/index';
+import { BaseRestService } from './baseService/index';
 import { BaseEntity } from './baseEntity';
 
-export interface IBaseCollection<S extends BaseService, I extends BaseEntity>  {
+export interface IBaseCollection<S extends BaseRestService, I extends BaseEntity>  {
   router: Router;
   service: S;
   items: I[];
@@ -17,7 +17,7 @@ export interface IBaseCollection<S extends BaseService, I extends BaseEntity>  {
 }
 
 @Injectable()
-export class BaseCollection<S extends BaseService, I extends BaseEntity> implements IBaseCollection<S, I> {
+export class BaseCollection<S extends BaseRestService, I extends BaseEntity> implements IBaseCollection<S, I> {
   constructor(
     public router: Router,
     public service: S,
@@ -38,6 +38,7 @@ export class BaseCollection<S extends BaseService, I extends BaseEntity> impleme
 
     this.service.add<I>(item).subscribe(x => {
       this.items.push(x);
+      this.service.add(x).subscribe();
     });
   }
 

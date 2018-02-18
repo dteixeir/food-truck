@@ -5,8 +5,8 @@ export class FoodTruck extends BaseEntity {
   description: string;
   website: string;
 
-  constructor(id: number, name: string, description: string, website: string) {
-    super(id);
+  constructor(name: string, description: string, website: string) {
+    super();
 
     this.name = name;
     this.description = description;

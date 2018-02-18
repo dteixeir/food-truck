@@ -14,8 +14,8 @@
         [style.background]="'lightblue'"
         (click)="changeRoute(item)"
       >
-      <div class="center-text">
-        {{item.name}}
+      <div *ngIf="items != null && items.length" class="center-text">
+        {{item?.name}}
       </div>
     </mat-grid-tile>
   </mat-grid-list>
