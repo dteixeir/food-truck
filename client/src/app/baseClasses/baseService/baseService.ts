@@ -25,31 +25,6 @@ export class BaseService implements IBaseService {
 
   protected url: string = `${environment.api}/${this.params.url}`;
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Access-Control-Allow-Origin': '*'
-    })
-  };
-
-  protected getHttpOptions() {
-    // httpHeaders is immutable and appending to the end of the object keeps appending to the object upon
-    // auth. returning the appended object fails due to a return difference type.
-    const token = JSON.parse(localStorage.getItem('jwt'));
-
-    if (token) {
-      return {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Authorization': `Bearer ${token.token.toString()}`
-        })
-      };
-    }
-
-    return this.httpOptions;
-  }
-
   protected log(message: string) {
     this.messageService.add(`${this.params.serviceName}: ${message}`);
   }

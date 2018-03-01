@@ -22,6 +22,9 @@ import { LoginComponent, LoginService } from './loginModule';
 
 import { environment } from '../environments/environment';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './baseClasses/';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +56,12 @@ import { environment } from '../environments/environment';
     HeroService,
     FoodTruckService,
     MessageService,
-    LoginService
+    LoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [ AppComponent ]
 })

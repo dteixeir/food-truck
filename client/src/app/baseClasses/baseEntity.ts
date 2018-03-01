@@ -1,5 +1,5 @@
 import { Guid } from 'guid-typescript';
-import { MomentModule } from 'angular2-moment/moment.module';
+// import { MomentModule } from 'angular2-moment/moment.module';
 
 export interface IBaseEntity {
   id: number;

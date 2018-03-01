@@ -31,7 +31,7 @@ export class LoginService extends BaseService {
   }
 
   public login(login: Login): Observable<any> {
-    return this.http.post(`${this.url}/authenticate`, login, this.getHttpOptions())
+    return this.http.post(`${this.url}/authenticate`, login)
       .catch((error, caught) => {
         return Observable.throw(error);
       });

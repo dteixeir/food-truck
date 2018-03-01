@@ -27,7 +27,7 @@ export class BaseRestService extends BaseService implements IBaseRestService {
   }
 
   public add<T extends BaseEntity>(item: T): Observable<T> {
-    return this.http.post<T>(this.url, item, this.getHttpOptions()).pipe(
+    return this.http.post<T>(this.url, item).pipe(
       tap((_: T) => this.log(`added ${this.params.entitySingle} w/ id=${_.id}`))
     );
   }
@@ -45,7 +45,7 @@ export class BaseRestService extends BaseService implements IBaseRestService {
   }
 
   public update<T extends BaseEntity>(item: T): Observable<T> {
-    return this.http.put<T>(this.url, item, this.getHttpOptions()).pipe(
+    return this.http.put<T>(this.url, item).pipe(
       tap((_: T) => this.log(`updated ${this.params.entitySingle} id=${_}`))
     );
   }
@@ -54,7 +54,7 @@ export class BaseRestService extends BaseService implements IBaseRestService {
     const id = typeof item === 'number' ? item : item.id;
     const url = `${this.url}/${id}`;
 
-    return this.http.delete<T>(url, this.getHttpOptions()).pipe(
+    return this.http.delete<T>(url).pipe(
       tap((_: T) => this.log(`deleted ${this.params.entitySingle} id=${id}`))
     );
   }

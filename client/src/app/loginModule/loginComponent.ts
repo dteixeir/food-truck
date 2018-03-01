@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
   attemptLogin() {
     this.loginService.login(this.login)
       .toPromise()
-      .then(token => {
-        localStorage.setItem('jwt', JSON.stringify(token));
+      .then(({ token }) => {
+        localStorage.setItem('jwt', token);
         this.router.navigateByUrl('/foodtruck');
       })
       .catch(({ error }) => console.log(error));
