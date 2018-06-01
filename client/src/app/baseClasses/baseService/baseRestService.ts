@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServiceParams } from './serviceParams';
 import { BaseEntity } from '../baseEntity';
 import { IBaseService, BaseService } from './baseService';
+import { JwtHelper } from '../jwtHelper';
 
 export interface IBaseRestService extends IBaseService {
   http: HttpClient;
@@ -14,6 +15,8 @@ export interface IBaseRestService extends IBaseService {
 
 @Injectable()
 export class BaseRestService extends BaseService implements IBaseRestService {
+  private jwtHelper: JwtHelper;
+  
   constructor(
     public http: HttpClient,
     public messageService: MessageService,
@@ -23,6 +26,8 @@ export class BaseRestService extends BaseService implements IBaseRestService {
       messageService,
       params
     );
+    
+    this.jwtHelper = new JwtHelper(this.http);
   }
 
   public add<T extends BaseEntity>(item: T): Observable<T> {
@@ -33,7 +38,9 @@ export class BaseRestService extends BaseService implements IBaseRestService {
 
   public getAll<T extends BaseEntity>(): Observable<T[]> {
     return this.http.get<T[]>(this.url).pipe(
-        tap(items => this.log(`fetched ${this.params.entityCollection}`))
+        tap(items => {
+          this.log(`fetched ${this.params.entityCollection}`)
+        })
       );
   }
 
@@ -56,6 +63,10 @@ export class BaseRestService extends BaseService implements IBaseRestService {
     return this.http.delete<T>(url).pipe(
       tap((_: T) => this.log(`deleted ${this.params.entitySingle} id=${id}`))
     );
+  }
+
+  public hasClaim(claimName: string): Observable<boolean> {
+    return this.jwtHelper.hasClaim(claimName);
   }
 }
 

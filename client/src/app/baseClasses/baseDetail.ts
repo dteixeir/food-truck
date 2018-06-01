@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { BaseRestService } from './baseService/index';
 import { BaseEntity } from './baseEntity';
 
@@ -20,6 +16,8 @@ export interface IBaseDetail<S extends BaseRestService, I extends BaseEntity>  {
 @Injectable()
 export class BaseDetail<S extends BaseRestService, I extends BaseEntity> implements IBaseDetail<S, I> {
   public item: I;
+  public canEdit: boolean = false;
+  public editingMode: boolean = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -43,9 +41,25 @@ export class BaseDetail<S extends BaseRestService, I extends BaseEntity> impleme
   }
 
   save(): void {
-    this.service.update(this.item).subscribe(() => {
-      this.goBack();
+    this.service.update(this.item).subscribe((item) => {
+      this.item = item;
+      this.editingMode = false;
     });
+  }
+
+  canEditClaim(claimName: string) {
+    this.service.hasClaim(claimName).subscribe((data: boolean) => {
+      this.canEdit = data
+    });
+  }
+
+  edit() {
+    this.editingMode = true;
+  }
+
+  cancel() {
+    this.editingMode = false;
+    this.getById();
   }
 }
 

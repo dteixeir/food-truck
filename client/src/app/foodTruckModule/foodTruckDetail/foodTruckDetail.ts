@@ -27,6 +27,8 @@ export class FoodTruckDetail extends BaseDetail<FoodTruckService, FoodTruck> imp
       'FoodTruck',
       'FoodTrucks'
     );
+
+    this.canEditClaim("Admin");
   }
 
   ngOnInit() {

@@ -29,6 +29,7 @@ export class FoodTruckCollection extends BaseCollection<FoodTruckService, FoodTr
     this.getAll();
   }
 
+  // float button bottom right if you can add!
   public addItem() {
     const truck: FoodTruck = new FoodTruck('test', 'test', '');
     this.service.add(truck).subscribe();
