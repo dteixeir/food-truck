@@ -10,6 +10,7 @@ using api.DataLayer.Interfaces;
 using api.Domain;
 using api.DataLayer;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Primitives;
 
 namespace api.Controllers
 {
@@ -49,6 +50,18 @@ namespace api.Controllers
       } catch(Exception error) {
         Console.WriteLine(error);
         return BadRequest("Registration Failed.");
+      }
+    }
+
+    [HttpGet]
+    public IActionResult HasClaim(string claimName)
+    {
+      try {
+        Request.Headers.TryGetValue("Authorization", out StringValues token);
+        bool hasClaim = _authManager.HasClaim(token, claimName);
+        return Ok(hasClaim);
+      } catch(Exception error) {
+        return BadRequest(error);
       }
     }
 

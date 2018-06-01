@@ -57,7 +57,7 @@ namespace api.Controllers
     {
       try
       {
-        var result = _manager.Post<MenuItem>(entity);
+        var result = _manager.Add<MenuItem>(entity);
         return Created($"{Url.RouteUrl(RouteData.Values)}/{entity.Id}", entity);
       }
       catch(Exception error) 
@@ -72,7 +72,7 @@ namespace api.Controllers
     {
       try
       {
-        var result = _manager.Put<MenuItem>(entity);
+        var result = _manager.Update<MenuItem>(entity);
         return Ok(result);
       }
       catch(Exception error) 

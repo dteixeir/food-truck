@@ -23,7 +23,7 @@ namespace api.Controllers
     }
 
     // GET api/values
-    [HttpGet, Authorize]
+    [HttpGet, Authorize(Roles = "Admin")]
     public IActionResult Get()
     {
       try
@@ -38,7 +38,7 @@ namespace api.Controllers
     }
 
     // GET api/values/5
-    [HttpGet("{id}"), Authorize]
+    [HttpGet("{id}"), Authorize(Roles = "Admin")]
     public IActionResult Get(Guid id)
     {
       try
@@ -53,12 +53,12 @@ namespace api.Controllers
     }
 
     // POST api/values
-    [HttpPost, Authorize]
+    [HttpPost, Authorize(Roles = "Admin")]
     public IActionResult Post([FromBody]User entity)
     {
       try
       {
-        var result = _manager.Post<User>(entity);
+        var result = _manager.Add<User>(entity);
         return Created($"{Url.RouteUrl(RouteData.Values)}/{entity.Id}", entity);
       }
       catch(Exception error) 
@@ -68,12 +68,12 @@ namespace api.Controllers
     }
 
     // PUT api/values/5
-    [HttpPut, Authorize]
+    [HttpPut, Authorize(Roles = "Admin")]
     public IActionResult Put([FromBody]User entity)
     {
       try
       {
-        var result = _manager.Put<User>(entity);
+        var result = _manager.Update<User>(entity);
         return Ok(result);
       }
       catch(Exception error) 
@@ -83,7 +83,7 @@ namespace api.Controllers
     }
 
     // DELETE api/values/5
-    [HttpDelete("{id}"), Authorize]
+    [HttpDelete("{id}"), Authorize(Roles = "Admin")]
     public IActionResult Delete(Guid id)
     {
       try

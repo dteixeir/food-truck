@@ -9,8 +9,8 @@ namespace api.DataLayer.Interfaces
   {
     Task<string> Authenticate(string username, string password);
 
-    Task<User> Put(User items);
-
     Task<User> Register(User item);
+
+    bool HasClaim(string token, string claimName);
   }
 }

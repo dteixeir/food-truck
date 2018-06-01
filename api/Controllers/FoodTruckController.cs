@@ -26,11 +26,11 @@ namespace api.Controllers
 
     // GET api/FoodTruck/
     [HttpGet, Authorize]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
       try 
       {
-        var result = _manager.Get<FoodTruck>();
+        var result = await _manager.Get<FoodTruck>();
         return Ok(result);
       } 
       catch(Exception error) {
@@ -40,11 +40,11 @@ namespace api.Controllers
 
     // GET api/FoodTruck/5
     [HttpGet("{id}"), Authorize]
-    public IActionResult Get(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
       try 
       {
-        var result = _manager.Get<FoodTruck>(id);
+        var result = await _manager.Get<FoodTruck>(id);
         return Ok(result);
       }
       catch(Exception error) 
@@ -56,16 +56,18 @@ namespace api.Controllers
 
     // POST api/FoodTruck
     [HttpPost, Authorize]
-    public IActionResult Post([FromBody]FoodTruck entity)
+    public async Task<IActionResult> Post([FromBody]FoodTruck entity)
     {
       try
       {
+        // TODO MOVE!!!!
+
         var currentUser = HttpContext.User;
         // var user = currentUser.Claims.Select(c => new {type=c.Type,value=c.Value}).ToList();
         var userId = currentUser.Claims.FirstOrDefault(c => c.Type == "User_Id")?.Value;
         entity.CreateUserId = (new Guid(userId));
         entity.CreateDateTime = DateTime.UtcNow;
-        var result = _manager.Post<FoodTruck>(entity);
+        var result = await _manager.Add<FoodTruck>(entity);
 
         return Created($"{Url.RouteUrl(RouteData.Values)}/{entity.Id}", entity);
       }
@@ -77,11 +79,11 @@ namespace api.Controllers
 
     // PUT api/FoodTruck/5
     [HttpPut, Authorize]
-    public IActionResult Put([FromBody]FoodTruck entity)
+    public async Task<IActionResult> Put([FromBody]FoodTruck entity)
     {
       try
       {
-        var result = _manager.Put<FoodTruck>(entity);
+        var result = await _manager.Update<FoodTruck>(entity);
         return Ok(result);
       }
       catch(Exception error) 
@@ -92,11 +94,11 @@ namespace api.Controllers
 
     // DELETE api/FoodTruck/5
     [HttpDelete("{id}"), Authorize]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
       try
       {
-        var result = _manager.Delete<FoodTruck>(id);
+        var result = await _manager.Delete<FoodTruck>(id);
         return NoContent();
       }
       catch(Exception error) 

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 
 using api.Domain;
 using api.DataLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.DataLayer
 {
@@ -18,29 +19,29 @@ namespace api.DataLayer
       _context = context;
     }
 
-    public IEnumerable<T> Get<T>() where T : BaseEntity {
-      return _context.Set<T>();
+    public async Task<IEnumerable<T>> Get<T>() where T : BaseEntity {
+      return await _context.Set<T>().ToListAsync();
     }
 
-    public T Get<T>(Guid id) where T : BaseEntity {
-      return _context.Set<T>().FirstOrDefault(x => x.Id == id);
+    public async Task<T> Get<T>(Guid id) where T : BaseEntity {
+      return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public T Put<T>(T entity) where T : BaseEntity {
+    public async Task<T> Update<T>(T entity) where T : BaseEntity {
       _context.Set<T>().Update(entity);
-      _context.SaveChanges();
+      await _context.SaveChangesAsync();
       return entity;
     }
 
-    public T Post<T>(T entity) where T : BaseEntity {
-      _context.Set<T>().Add(entity);
-      _context.SaveChanges();
+    public async Task<T> Add<T>(T entity) where T : BaseEntity {
+      await _context.Set<T>().AddAsync(entity);
+      await _context.SaveChangesAsync();
       return entity;
     }
-    public T Delete<T>(Guid id) where T : BaseEntity {
-      var entity = Get<T>(id);
+    public async Task<T> Delete<T>(Guid id) where T : BaseEntity {
+      var entity = await Get<T>(id);
       _context.Set<T>().Remove(entity);
-      _context.SaveChanges();
+      await _context.SaveChangesAsync();
       return entity;
     }
   }
